@@ -15,6 +15,7 @@ const resultContainer = document.getElementById('result-container');
 const scoreSpan = document.getElementById('score');
 const resultMessage = document.getElementById('result-message');
 const retryButton = document.getElementById('retry-button');
+const questionNumberElement = document.getElementById('question-number');
 
 let currentQuiz = [];
 let currentQuestionIndex = 0;
@@ -38,6 +39,9 @@ function generateQuiz() {
 function showQuestion() {
     const question = currentQuiz[currentQuestionIndex];
     floorPlanImage.src = question.path;
+    
+    // 問題番号を更新
+    questionNumberElement.textContent = `${currentQuestionIndex + 1}/${currentQuiz.length}`;
 
     const correctAnswer = question.name;
     const wrongAnswerTypes = allPlanTypes.filter(type => type !== correctAnswer);
