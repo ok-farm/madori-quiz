@@ -48,7 +48,15 @@ function showQuestion() {
     options.forEach(option => {
         const button = document.createElement('button');
         button.textContent = option;
-        button.onclick = () => checkAnswer(option === correctAnswer);
+        button.onclick = function() {
+            // 他のボタンの選択状態をリセット
+            const buttons = optionsContainer.querySelectorAll('button');
+            buttons.forEach(btn => btn.classList.remove('selected'));
+            // クリックしたボタンに選択状態を追加
+            this.classList.add('selected');
+            // 回答をチェック
+            checkAnswer(option === correctAnswer);
+        };
         optionsContainer.appendChild(button);
     });
 }
@@ -84,6 +92,9 @@ function showResult() {
 retryButton.addEventListener('click', () => {
     resultContainer.classList.add('hidden');
     quizContainer.classList.remove('hidden');
+    // 選択状態をリセットしてから新しいクイズを開始
+    const buttons = optionsContainer.querySelectorAll('button');
+    buttons.forEach(btn => btn.classList.remove('selected'));
     generateQuiz();
 });
 
